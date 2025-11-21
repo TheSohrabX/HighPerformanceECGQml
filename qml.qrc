@@ -3,5 +3,8 @@
         <file>qml/EggMonitor.qml</file>
         <file>qml/Main.qml</file>
         <file>qml/MainWindow.qml</file>
+        <file>qml/VoiceVisualizer.qml</file>
+        <file>qml/ToolSelector.qml</file>
+        <file>qml/LazyPage.qml</file>
     </qresource>
 </RCC>

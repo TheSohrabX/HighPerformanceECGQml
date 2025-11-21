@@ -47,12 +47,23 @@ EggModel::~EggModel()
 void
 EggModel::start()
 {
+    dPtr->lineSeries->replace({});
     // dPtr->lineSeries->blockSignals(true);
     dPtr->sensor->setBufferSize(visualPointsCount());
     dPtr->batchBuf.reserve(screenRefreshRateMS());
     dPtr->points.reserve(visualPointsCount() + screenRefreshRateMS());
     dPtr->sensor->start(QThread::HighestPriority);
     dPtr->uiTimer.start();
+}
+
+void
+EggModel::stop()
+{
+    dPtr->uiTimer.stop();
+    dPtr->sensor->requestInterruption();
+    dPtr->sensor->quit();
+    dPtr->sensor->wait();
+    // dPtr->lineSeries->blockSignals(false);
 }
 
 void

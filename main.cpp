@@ -1,3 +1,6 @@
+#include "main.h"
+
+#include "modules/AudioVisualizerModel.h"
 #include "modules/EggModel.h"
 
 #include <QGuiApplication>
@@ -14,10 +17,14 @@ main(int argc, char *argv[])
 {
     QGuiApplication       app(argc, argv);
 
+    Main::installTheme();
+
     QQmlApplicationEngine engine;
 
     qmlRegisterType<EggModel>("Egg", 1, 0, "EggModel");
     qmlRegisterType<EggSensor>("Egg", 1, 0, "EggSensor");
+
+    qmlRegisterType<AudioVisualizerModel>("AudioViz", 1, 0, "AudioVisualizer");
 
     QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreationFailed, &app,

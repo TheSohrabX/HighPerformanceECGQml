@@ -28,6 +28,7 @@ public:
     std::vector<EggSample>   generate(int N);
 
     Q_INVOKABLE void         start();
+    Q_INVOKABLE void         stop();
 
     void                     setAxisX(QValueAxis* xAxis);
     QValueAxis*              axisX() const;

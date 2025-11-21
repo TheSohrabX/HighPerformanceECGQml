@@ -12,6 +12,7 @@ find_package(Qt6 REQUIRED COMPONENTS Quick)
 find_package(Qt6 REQUIRED COMPONENTS Graphs)
 find_package(Qt6 REQUIRED COMPONENTS Concurrent)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Multimedia)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -27,6 +28,9 @@ qt_add_qml_module(appHighPerformanceECGQml2
     SOURCES modules/RingBuffer.h
     SOURCES modules/EggSensor.h modules/EggSensor.cpp
     SOURCES modules/TimeTrace.h
+    SOURCES main.h
+    SOURCES modules/AudioInput.h modules/AudioInput.cpp
+    SOURCES modules/AudioVisualizerModel.h modules/AudioVisualizerModel.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -40,10 +44,14 @@ set_target_properties(appHighPerformanceECGQml2 PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+target_include_directories(appHighPerformanceECGQml2 PRIVATE "D:/Work/AJA/HighPerformanceECGQml/fftw")
+
 target_link_libraries(appHighPerformanceECGQml2 PRIVATE Qt6::Quick)
 target_link_libraries(appHighPerformanceECGQml2 PRIVATE Qt6::Graphs)
 target_link_libraries(appHighPerformanceECGQml2 PRIVATE Qt6::Concurrent)
 target_link_libraries(appHighPerformanceECGQml2 PRIVATE Qt6::Core)
+target_link_libraries(appHighPerformanceECGQml2 PRIVATE Qt6::Multimedia)
+target_link_libraries(appHighPerformanceECGQml2 PRIVATE "D:/Work/AJA/HighPerformanceECGQml/fftw/libfftw3-3.lib")
 
 include(GNUInstallDirs)
 install(TARGETS appHighPerformanceECGQml2

@@ -1,39 +1,37 @@
 import QtQuick
 import QtGraphs
+import AudioViz
 import QtQuick.Controls
-import Egg
 
 LazyPage {
     contentItem: Component {
         GraphsView {
-            id: graphView
             anchors.fill: parent
-
             theme: GraphsTheme {
                 colorScheme: GraphsTheme.ColorScheme.Dark
                 seriesColors: ["Red"]
             }
 
-            axisX: ValueAxis {
+            axisX: ValueAxis  {
                 id: xAxis
-                max: 2000
-                min: 0
+                labelsVisible: false
             }
 
             axisY: ValueAxis {
                 id: yAxis
-                min: -1.6
-                max: 1.6
+                min: 0
+                max: 50
             }
 
-            LineSeries {
-                id: lineSeries
+            BarSeries {
+                id: bars
+                barWidth: 0.8
             }
 
             Component.onCompleted: {
-                model.axisX = xAxis;
-                model.axisY = yAxis;
-                model.series = lineSeries
+                audioViz.barSeries = bars
+                audioViz.axisX = xAxis
+                audioViz.axisY = yAxis
             }
         }
     }
@@ -43,7 +41,10 @@ LazyPage {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.margins: 10
-        onClicked: stackView.pop()
+        onClicked: {
+            audioViz.stop()
+            stackView.pop()
+        }
     }
 
     Button {
@@ -52,16 +53,12 @@ LazyPage {
         text: running ? "Stop" : "Start"
         anchors.centerIn: parent
         onClicked: {
-            running ? model.stop() : model.start();
-            running = !running
+            running ? audioViz.stop() : audioViz.start();
+            running = !running;
         }
     }
 
-    EggModel{
-        id: model
-        sensor: EggSensor {
-            mode: EggSensor.HeartAttack
-            sampleRate: 300
-        }
+    AudioVisualizer {
+        id: audioViz
     }
 }
