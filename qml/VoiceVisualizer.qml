@@ -9,7 +9,7 @@ LazyPage {
             anchors.fill: parent
             theme: GraphsTheme {
                 colorScheme: GraphsTheme.ColorScheme.Dark
-                seriesColors: ["Red"]
+                seriesColors: ["#009688"]
             }
 
             axisX: ValueAxis  {

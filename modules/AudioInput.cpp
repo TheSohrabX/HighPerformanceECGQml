@@ -10,7 +10,7 @@ struct AudioInputPrivate
 
     static constexpr int FFT_SIZE     = 1'024;
 
-    QVector<double>      windowBuf;    // sliding window of FFT_SIZE
+    QVector<double>      windowBuf;
     int                  writePos = 0;
 
     fftw_plan            plan;
@@ -150,17 +150,14 @@ AudioInput::initFFTW()
 void
 AudioInput::computeFFT()
 {
-    // copy buffer into FFT input
     for(int i = 0; i < dPtr->FFT_SIZE; i++)
         dPtr->in[i] = dPtr->windowBuf[i];
 
-    // run FFTW
     fftw_execute(dPtr->plan);
 
     QVector<float> magnitudes;
     magnitudes.reserve(dPtr->FFT_SIZE / 2);
 
-    // compute magnitude for each bin
     for(int k = 0; k < dPtr->FFT_SIZE / 2; k++)
     {
         double real = dPtr->out[k][0];

@@ -75,7 +75,7 @@ void
 AudioVisualizerModel::onNewSpectrum(const QVector<float>& magnitudes)
 {
     ScopedTimeTraceMS trace(Q_FUNC_INFO);
-    dPtr->barSeries->replace(downSample(magnitudes));
+    if(dPtr->barSeries) dPtr->barSeries->replace(downSample(magnitudes));
 }
 
 QVector<QBarSet*>
