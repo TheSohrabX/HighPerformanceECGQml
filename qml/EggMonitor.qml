@@ -8,7 +8,7 @@ Item {
         id: model
         sensor: EggSensor {
             mode: EggSensor.HeartAttack
-            sampleRate: 1000
+            sampleRate: 300
         }
     }
 

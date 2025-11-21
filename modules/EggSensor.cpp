@@ -38,7 +38,7 @@ EggSensor::run()
     while(!QThread::currentThread()->isInterruptionRequested())
     {
         // ~0 ms
-        ScopedTimeTraceMS trace(Q_FUNC_INFO);
+        ScopedTimeTraceMS trace("Sensor Thread");
         next        += dPtr->period;
 
         qreal time   = elapsedSinceStart().count();

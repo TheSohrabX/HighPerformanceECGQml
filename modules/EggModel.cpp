@@ -47,6 +47,7 @@ EggModel::~EggModel()
 void
 EggModel::start()
 {
+    // dPtr->lineSeries->blockSignals(true);
     dPtr->sensor->setBufferSize(visualPointsCount());
     dPtr->batchBuf.reserve(screenRefreshRateMS());
     dPtr->points.reserve(visualPointsCount() + screenRefreshRateMS());
@@ -107,7 +108,7 @@ void
 EggModel::repaint()
 {
     // ~0 ms
-    // ScopedTimeTraceMS trace(Q_FUNC_INFO);
+    ScopedTimeTraceMS trace("Main   Thread");
 
     if(!dPtr->lineSeries) return;
 
@@ -201,6 +202,7 @@ EggModel::updateGraph()
         dPtr->lineSeries->replace(dPtr->points);
     }
 
+    dPtr->lineSeries->update();
     dPtr->batchBuf.clear();
 }
 
